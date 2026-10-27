@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Copy | VS Code Theme</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #252526;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #333333;
+        }
+
+        header h1 {
+            color: #4fc1ff;
+            font-size: 28px;
+        }
+
+        header p {
+            margin-top: 8px;
+            color: #999999;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #dcdcaa;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #999999;
+            margin-bottom: 30px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .copy-btn {
+            min-height: 115px;
+            padding: 18px 10px;
+            background-color: #252526;
+            color: #9cdcfe;
+            border: 1px solid #3c3c3c;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            overflow-wrap: anywhere;
+        }
+
+        .copy-btn span {
+            display: block;
+            margin-top: 10px;
+            color: #808080;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            background-color: #333333;
+            border-color: #007acc;
+            transform: translateY(-3px);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.97);
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 25px;
+            min-height: 24px;
+            color: #4ec9b0;
+            font-size: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #808080;
+            font-size: 13px;
+        }
+
+        @media (max-width: 550px) {
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .container {
+                margin: 25px auto;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>&lt;/&gt; Quick Copy</h1>
+        <p>A simple copy-to-clipboard website</p>
+    </header>
+
+    <main class="container">
+        <h2>My Quick Buttons</h2>
+        <p class="subtitle">Click any button to copy its text.</p>
+
+        <div class="button-grid">
+
+            <button class="copy-btn" data-copy="Hello World!">
+                Hello World!
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="Thank You">
+                Thank You
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="Welcome Back">
+                Welcome Back
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="Good Morning">
+                Good Morning
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="HTML CSS JavaScript">
+                HTML CSS JavaScript
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="Have a Nice Day">
+                Have a Nice Day
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="See You Soon">
+                See You Soon
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="Congratulations!">
+                Congratulations!
+                <span>Click to copy</span>
+            </button>
+
+            <button class="copy-btn" data-copy="All the Best">
+                All the Best
+                <span>Click to copy</span>
+            </button>
+
+        </div>
+
+        <p id="message" role="status" aria-live="polite"></p>
+    </main>
+
+    <footer>
+        Built with HTML, CSS &amp; JavaScript | VS Code Inspired Theme
+    </footer>
+
+    <script>
+        const buttons = document.querySelectorAll(".copy-btn");
+        const message = document.getElementById("message");
+
+        buttons.forEach(function(button) {
+            button.addEventListener("click", async function() {
+                const text = button.dataset.copy;
+
+                try {
+                    await navigator.clipboard.writeText(text);
+                    message.textContent = "✓ Copied: " + text;
+                } catch (error) {
+                    // Fallback for browsers that block clipboard access
+                    const textarea = document.createElement("textarea");
+                    textarea.value = text;
+                    textarea.style.position = "fixed";
+                    textarea.style.opacity = "0";
+                    document.body.appendChild(textarea);
+                    textarea.select();
+
+                    try {
+                        const copied = document.execCommand("copy");
+                        message.textContent = copied
+                            ? "✓ Copied: " + text
+                            : "Copy failed. Please copy manually.";
+                    } catch (e) {
+                        message.textContent =
+                            "Copy failed. Please copy manually.";
+                    }
+
+                    textarea.remove();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
