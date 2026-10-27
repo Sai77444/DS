@@ -1,236 +1,1190 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Copy | VS Code Theme</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structure Practicals — Quick Copy</title>
+<style>
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 32px 18px;
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: Consolas, "Courier New", monospace;
+}
 
-        body {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            font-family: "Segoe UI", Arial, sans-serif;
-            min-height: 100vh;
-        }
+.wrap { max-width: 1000px; margin: auto; }
+h1 { font-size: clamp(24px, 4vw, 36px); margin: 0 0 8px; }
+.sub { color: #9da7b3; margin: 0 0 24px; line-height: 1.6; }
 
-        header {
-            background-color: #252526;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #333333;
-        }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
 
-        header h1 {
-            color: #4fc1ff;
-            font-size: 28px;
-        }
+button {
+  border: 1px solid #30363d;
+  background: #161b22;
+  color: #e6edf3;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition: .15s ease;
+  min-height: 76px;
+}
 
-        header p {
-            margin-top: 8px;
-            color: #999999;
-        }
+button:hover {
+  border-color: #58a6ff;
+  background: #1c2633;
+  transform: translateY(-1px);
+}
 
-        .container {
-            max-width: 850px;
-            margin: 50px auto;
-            padding: 20px;
-        }
+button:focus-visible {
+  outline: 2px solid #58a6ff;
+  outline-offset: 2px;
+}
 
-        .container h2 {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #dcdcaa;
-        }
+.num {
+  color: #58a6ff;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
 
-        .subtitle {
-            text-align: center;
-            color: #999999;
-            margin-bottom: 30px;
-        }
-
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .copy-btn {
-            min-height: 115px;
-            padding: 18px 10px;
-            background-color: #252526;
-            color: #9cdcfe;
-            border: 1px solid #3c3c3c;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-            overflow-wrap: anywhere;
-        }
-
-        .copy-btn span {
-            display: block;
-            margin-top: 10px;
-            color: #808080;
-            font-size: 12px;
-        }
-
-        .copy-btn:hover {
-            background-color: #333333;
-            border-color: #007acc;
-            transform: translateY(-3px);
-        }
-
-        .copy-btn:active {
-            transform: scale(0.97);
-        }
-
-        #message {
-            text-align: center;
-            margin-top: 25px;
-            min-height: 24px;
-            color: #4ec9b0;
-            font-size: 15px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #808080;
-            font-size: 13px;
-        }
-
-        @media (max-width: 550px) {
-            .button-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .container {
-                margin: 25px auto;
-            }
-
-            header h1 {
-                font-size: 23px;
-            }
-        }
-
-        @media (max-width: 350px) {
-            .button-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+.title { font-size: 14px; line-height: 1.45; }
+#status { min-height: 24px; color: #3fb950; margin-top: 18px; }
+.note { color: #8b949e; font: 12px/1.6 Arial, sans-serif; margin-top: 28px; }
+</style>
 </head>
 
 <body>
+<div class="wrap">
+  <h1>Quick Copy — Data Structure Practicals</h1>
+  <p class="sub">
+    Click a practical button to copy its complete C program.
+    Practical 10 is not included.
+  </p>
 
-    <header>
-        <h1>&lt;/&gt; Quick Copy</h1>
-        <p>A simple copy-to-clipboard website</p>
-    </header>
+  <div class="grid">
+    <button type="button" id="button1">
+      <span class="num">BUTTON 1</span>
+      <span class="title">Existing button — unchanged</span>
+    </button>
 
-    <main class="container">
-        <h2>My Quick Buttons</h2>
-        <p class="subtitle">Click any button to copy its text.</p>
+    <button type="button" data-practical="2">
+      <span class="num">PRACTICAL 2</span>
+      <span class="title">Selection Sort and Bubble Sort</span>
+    </button>
 
-        <div class="button-grid">
+    <button type="button" data-practical="3">
+      <span class="num">PRACTICAL 3</span>
+      <span class="title">Telephone Book Using Hash Table</span>
+    </button>
 
-            <button class="copy-btn" data-copy="Hello World!">
-                Hello World!
-                <span>Click to copy</span>
-            </button>
+    <button type="button" data-practical="4">
+      <span class="num">PRACTICAL 4</span>
+      <span class="title">Pinnacle Club Using Singly Linked List</span>
+    </button>
 
-            <button class="copy-btn" data-copy="Thank You">
-                Thank You
-                <span>Click to copy</span>
-            </button>
+    <button type="button" data-practical="5">
+      <span class="num">PRACTICAL 5</span>
+      <span class="title">Cinemax Ticket Booking Using Doubly Linked List</span>
+    </button>
 
-            <button class="copy-btn" data-copy="Welcome Back">
-                Welcome Back
-                <span>Click to copy</span>
-            </button>
+    <button type="button" data-practical="6">
+      <span class="num">PRACTICAL 6</span>
+      <span class="title">Balanced Parentheses Using Stack</span>
+    </button>
 
-            <button class="copy-btn" data-copy="Good Morning">
-                Good Morning
-                <span>Click to copy</span>
-            </button>
+    <button type="button" data-practical="7">
+      <span class="num">PRACTICAL 7</span>
+      <span class="title">Job Queue Using Queue</span>
+    </button>
 
-            <button class="copy-btn" data-copy="HTML CSS JavaScript">
-                HTML CSS JavaScript
-                <span>Click to copy</span>
-            </button>
+    <button type="button" data-practical="8">
+      <span class="num">PRACTICAL 8</span>
+      <span class="title">Binary Search Tree Operations</span>
+    </button>
 
-            <button class="copy-btn" data-copy="Have a Nice Day">
-                Have a Nice Day
-                <span>Click to copy</span>
-            </button>
+    <button type="button" data-practical="9">
+      <span class="num">PRACTICAL 9</span>
+      <span class="title">Graph Representation and DFS</span>
+    </button>
+  </div>
 
-            <button class="copy-btn" data-copy="See You Soon">
-                See You Soon
-                <span>Click to copy</span>
-            </button>
+  <div id="status" role="status" aria-live="polite"></div>
 
-            <button class="copy-btn" data-copy="Congratulations!">
-                Congratulations!
-                <span>Click to copy</span>
-            </button>
+  <p class="note">
+    Button 1 has no copy action. Practicals 2–9 have their C programs.
+    Practical 10 is excluded.
+  </p>
+</div>
 
-            <button class="copy-btn" data-copy="All the Best">
-                All the Best
-                <span>Click to copy</span>
-            </button>
+<script>
+const practicalCodes = {
+"2": String.raw`/* Practical 2: Sorting percentages using Selection Sort and Bubble Sort */
+#include <stdio.h>
+#define MAX 100
 
-        </div>
+void selectionSort(float arr[], int n) {
+    int i, j, minIndex;
+    float temp;
 
-        <p id="message" role="status" aria-live="polite"></p>
-    </main>
+    for (i = 0; i < n - 1; i++) {
+        minIndex = i;
 
-    <footer>
-        Built with HTML, CSS &amp; JavaScript | VS Code Inspired Theme
-    </footer>
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex])
+                minIndex = j;
+        }
 
-    <script>
-        const buttons = document.querySelectorAll(".copy-btn");
-        const message = document.getElementById("message");
+        if (minIndex != i) {
+            temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+    }
+}
 
-        buttons.forEach(function(button) {
-            button.addEventListener("click", async function() {
-                const text = button.dataset.copy;
+void bubbleSort(float arr[], int n) {
+    int i, j;
+    float temp;
 
-                try {
-                    await navigator.clipboard.writeText(text);
-                    message.textContent = "✓ Copied: " + text;
-                } catch (error) {
-                    // Fallback for browsers that block clipboard access
-                    const textarea = document.createElement("textarea");
-                    textarea.value = text;
-                    textarea.style.position = "fixed";
-                    textarea.style.opacity = "0";
-                    document.body.appendChild(textarea);
-                    textarea.select();
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
 
-                    try {
-                        const copied = document.execCommand("copy");
-                        message.textContent = copied
-                            ? "✓ Copied: " + text
-                            : "Copy failed. Please copy manually.";
-                    } catch (e) {
-                        message.textContent =
-                            "Copy failed. Please copy manually.";
-                    }
+void displayArray(float arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++)
+        printf("%.2f\\t", arr[i]);
+    printf("\\n");
+}
 
-                    textarea.remove();
-                }
-            });
-        });
-    </script>
+void displayTop5(float arr[], int n) {
+    int i, count = (n < 5) ? n : 5;
 
+    printf("Top %d scores (highest first):\\n", count);
+    for (i = n - 1; i >= n - count; i--)
+        printf("%.2f\\n", arr[i]);
+}
+
+int main(void) {
+    float arr[MAX], original[MAX];
+    int n, choice, i;
+
+    printf("Enter number of students (1-%d): ", MAX);
+    if (scanf("%d", &n) != 1 || n < 1 || n > MAX) {
+        printf("Invalid number of students.\\n");
+        return 1;
+    }
+
+    printf("Enter first-year percentages:\\n");
+    for (i = 0; i < n; i++) {
+        scanf("%f", &arr[i]);
+        original[i] = arr[i];
+    }
+
+    do {
+        printf("\\n----- MENU -----\\n");
+        printf("1. Selection Sort\\n");
+        printf("2. Bubble Sort\\n");
+        printf("3. Exit\\nChoice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                for (i = 0; i < n; i++)
+                    arr[i] = original[i];
+                selectionSort(arr, n);
+                printf("Sorted array (Selection Sort): ");
+                displayArray(arr, n);
+                displayTop5(arr, n);
+                break;
+
+            case 2:
+                for (i = 0; i < n; i++)
+                    arr[i] = original[i];
+                bubbleSort(arr, n);
+                printf("Sorted array (Bubble Sort): ");
+                displayArray(arr, n);
+                displayTop5(arr, n);
+                break;
+
+            case 3:
+                printf("Program terminated.\\n");
+                break;
+
+            default:
+                printf("Invalid choice.\\n");
+        }
+    } while (choice != 3);
+
+    return 0;
+}`,
+
+"3": String.raw`/* Practical 3: Telephone Book Database Using Hash Table */
+#include <stdio.h>
+#define SIZE 11
+
+typedef struct {
+    long phone;
+    int occupied;
+} Entry;
+
+Entry table[SIZE];
+
+int hash1(long key) {
+    return (int)(key % SIZE);
+}
+
+int hash2(long key) {
+    return 7 - (int)(key % 7);
+}
+
+int probeIndex(long key, int i, int method) {
+    int h = hash1(key);
+
+    if (method == 1)
+        return (h + i) % SIZE;
+    if (method == 2)
+        return (h + i * i) % SIZE;
+
+    return (h + i * hash2(key)) % SIZE;
+}
+
+void insertPhone(long key, int method) {
+    int i, idx;
+
+    for (i = 0; i < SIZE; i++) {
+        idx = probeIndex(key, i, method);
+
+        if (table[idx].occupied && table[idx].phone == key) {
+            printf("Phone number already exists at index %d.\\n", idx);
+            return;
+        }
+
+        if (!table[idx].occupied) {
+            table[idx].phone = key;
+            table[idx].occupied = 1;
+            printf("Phone number inserted at index %d.\\n", idx);
+            return;
+        }
+    }
+
+    printf("Hash table is full; unable to insert.\\n");
+}
+
+void searchPhone(long key, int method) {
+    int i, idx;
+
+    for (i = 0; i < SIZE; i++) {
+        idx = probeIndex(key, i, method);
+
+        if (!table[idx].occupied) {
+            printf("Phone number not found.\\n");
+            return;
+        }
+
+        if (table[idx].phone == key) {
+            printf("Phone number found at index %d.\\n", idx);
+            return;
+        }
+    }
+
+    printf("Phone number not found.\\n");
+}
+
+void displayTable(void) {
+    int i;
+
+    printf("Index\\tPhone Number\\n");
+    for (i = 0; i < SIZE; i++) {
+        if (table[i].occupied)
+            printf("%d\\t%ld\\n", i, table[i].phone);
+        else
+            printf("%d\\t---\\n", i);
+    }
+}
+
+int main(void) {
+    int choice, method;
+    long key;
+
+    do {
+        printf("\\n----- MENU -----\\n");
+        printf("1. Insert phone number\\n");
+        printf("2. Search phone number\\n");
+        printf("3. Display hash table\\n");
+        printf("4. Exit\\nChoice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1 || choice == 2) {
+            printf("Enter phone number: ");
+            scanf("%ld", &key);
+
+            printf("Collision method (1.Linear 2.Quadratic 3.Double Hashing): ");
+            scanf("%d", &method);
+
+            if (method < 1 || method > 3) {
+                printf("Invalid method.\\n");
+                continue;
+            }
+
+            if (choice == 1)
+                insertPhone(key, method);
+            else
+                searchPhone(key, method);
+
+        } else if (choice == 3) {
+            displayTable();
+        } else if (choice == 4) {
+            printf("Program terminated.\\n");
+        } else {
+            printf("Invalid choice.\\n");
+        }
+    } while (choice != 4);
+
+    return 0;
+}`,
+
+"4": String.raw`/* Practical 4: Pinnacle Club Membership Using Singly Linked List */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Node {
+    int prn;
+    char name[50];
+    struct Node *next;
+} Node;
+
+Node *createNode(int prn, const char *name) {
+    Node *n = (Node *)malloc(sizeof(Node));
+
+    if (!n) {
+        printf("Memory allocation failed.\\n");
+        exit(1);
+    }
+
+    n->prn = prn;
+    strncpy(n->name, name, sizeof(n->name) - 1);
+    n->name[sizeof(n->name) - 1] = '\\0';
+    n->next = NULL;
+
+    return n;
+}
+
+void addPresident(Node **head, int prn, const char *name) {
+    Node *n = createNode(prn, name);
+    n->next = *head;
+    *head = n;
+}
+
+void addSecretary(Node **head, int prn, const char *name) {
+    Node *n = createNode(prn, name), *p;
+
+    if (!*head) {
+        *head = n;
+        return;
+    }
+
+    p = *head;
+    while (p->next)
+        p = p->next;
+
+    p->next = n;
+}
+
+void addMember(Node **head, int prn, const char *name) {
+    Node *n = createNode(prn, name), *p;
+
+    if (!*head || !(*head)->next) {
+        addSecretary(head, prn, name);
+        free(n);
+        return;
+    }
+
+    p = (*head)->next;
+    while (p->next && p->next->next)
+        p = p->next;
+
+    n->next = p->next;
+    p->next = n;
+}
+
+void deletePRN(Node **head, int prn) {
+    Node *p = *head, *prev = NULL;
+
+    while (p && p->prn != prn) {
+        prev = p;
+        p = p->next;
+    }
+
+    if (!p) {
+        printf("Member not found.\\n");
+        return;
+    }
+
+    if (prev)
+        prev->next = p->next;
+    else
+        *head = p->next;
+
+    free(p);
+    printf("Member deleted.\\n");
+}
+
+void display(Node *head) {
+    int count = 0;
+
+    if (!head) {
+        printf("No members in the club.\\n");
+        return;
+    }
+
+    printf("\\nPRN\\tName\\n");
+    while (head) {
+        printf("%d\\t%s\\n", head->prn, head->name);
+        count++;
+        head = head->next;
+    }
+
+    printf("Total members: %d\\n", count);
+}
+
+void concatenate(Node **first, Node *second) {
+    Node *p;
+
+    if (!*first) {
+        *first = second;
+        return;
+    }
+
+    p = *first;
+    while (p->next)
+        p = p->next;
+
+    p->next = second;
+}
+
+void freeList(Node *head) {
+    Node *tmp;
+
+    while (head) {
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+}
+
+int main(void) {
+    Node *head = NULL, *other = NULL;
+    int choice, prn;
+    char name[50];
+
+    do {
+        printf("\\n--- Pinnacle Club MENU ---\\n");
+        printf("1. Add President\\n");
+        printf("2. Add Secretary\\n");
+        printf("3. Add Member\\n");
+        printf("4. Delete Member by PRN\\n");
+        printf("5. Display Members\\n");
+        printf("6. Concatenate another list\\n");
+        printf("7. Exit\\nChoice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter PRN and name: ");
+                scanf("%d %49s", &prn, name);
+                addPresident(&head, prn, name);
+                break;
+
+            case 2:
+                printf("Enter PRN and name: ");
+                scanf("%d %49s", &prn, name);
+                addSecretary(&head, prn, name);
+                break;
+
+            case 3:
+                printf("Enter PRN and name: ");
+                scanf("%d %49s", &prn, name);
+                addMember(&head, prn, name);
+                break;
+
+            case 4:
+                printf("Enter PRN to delete: ");
+                scanf("%d", &prn);
+                deletePRN(&head, prn);
+                break;
+
+            case 5:
+                display(head);
+                break;
+
+            case 6:
+                printf("Enter PRN and name for the other list: ");
+                scanf("%d %49s", &prn, name);
+                addSecretary(&other, prn, name);
+                concatenate(&head, other);
+                other = NULL;
+                printf("Lists concatenated.\\n");
+                break;
+
+            case 7:
+                printf("Program terminated.\\n");
+                break;
+
+            default:
+                printf("Invalid choice.\\n");
+        }
+    } while (choice != 7);
+
+    freeList(head);
+    freeList(other);
+    return 0;
+}`,
+
+"5": String.raw`/* Practical 5: Cinemax Ticket Booking Using Doubly Linked List */
+#include <stdio.h>
+#include <stdlib.h>
+#define ROWS 5
+#define SEATS 10
+
+typedef struct Seat {
+    int seatNo;
+    int booked;
+    struct Seat *prev;
+    struct Seat *next;
+} Seat;
+
+Seat *rowHead[ROWS];
+
+void createRows(void) {
+    int r, s;
+
+    for (r = 0; r < ROWS; r++) {
+        Seat *tail = NULL;
+        rowHead[r] = NULL;
+
+        for (s = 1; s <= SEATS; s++) {
+            Seat *n = (Seat *)malloc(sizeof(Seat));
+
+            if (!n) {
+                printf("Memory allocation failed.\\n");
+                exit(1);
+            }
+
+            n->seatNo = s;
+            n->booked = 0;
+            n->prev = tail;
+            n->next = NULL;
+
+            if (tail)
+                tail->next = n;
+            else
+                rowHead[r] = n;
+
+            tail = n;
+        }
+    }
+}
+
+Seat *findSeat(int row, int seatNo) {
+    Seat *p;
+
+    if (row < 0 || row >= ROWS)
+        return NULL;
+
+    p = rowHead[row];
+    while (p && p->seatNo != seatNo)
+        p = p->next;
+
+    return p;
+}
+
+void viewAvailable(int row) {
+    Seat *p;
+
+    if (row < 0 || row >= ROWS) {
+        printf("Invalid row.\\n");
+        return;
+    }
+
+    printf("Available seats in row %d: ", row + 1);
+    for (p = rowHead[row]; p; p = p->next) {
+        if (!p->booked)
+            printf("%d ", p->seatNo);
+    }
+    printf("\\n");
+}
+
+void bookSeat(int row, int seatNo) {
+    Seat *p = findSeat(row, seatNo);
+
+    if (!p)
+        printf("Invalid row or seat.\\n");
+    else if (p->booked)
+        printf("Seat is already booked.\\n");
+    else {
+        p->booked = 1;
+        printf("Seat booked successfully.\\n");
+    }
+}
+
+void cancelSeat(int row, int seatNo) {
+    Seat *p = findSeat(row, seatNo);
+
+    if (!p)
+        printf("Invalid row or seat.\\n");
+    else if (!p->booked)
+        printf("Seat is not booked.\\n");
+    else {
+        p->booked = 0;
+        printf("Booking cancelled.\\n");
+    }
+}
+
+void displayAll(void) {
+    int r;
+    Seat *p;
+
+    for (r = 0; r < ROWS; r++) {
+        printf("Row %2d: ", r + 1);
+
+        for (p = rowHead[r]; p; p = p->next)
+            printf("%d(%s) ", p->seatNo,
+                   p->booked ? "Booked" : "Free");
+
+        printf("\\n");
+    }
+}
+
+void freeRows(void) {
+    int r;
+
+    for (r = 0; r < ROWS; r++) {
+        Seat *p = rowHead[r], *tmp;
+
+        while (p) {
+            tmp = p;
+            p = p->next;
+            free(tmp);
+        }
+    }
+}
+
+int main(void) {
+    int choice, row, seat;
+
+    createRows();
+
+    do {
+        printf("\\n--- Cinemax Ticket Booking ---\\n");
+        printf("1. View available seats\\n");
+        printf("2. Book seat\\n");
+        printf("3. Cancel booking\\n");
+        printf("4. Display all seats\\n");
+        printf("5. Exit\\nChoice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter row (1-%d): ", ROWS);
+                scanf("%d", &row);
+                viewAvailable(row - 1);
+                break;
+
+            case 2:
+                printf("Enter row and seat: ");
+                scanf("%d%d", &row, &seat);
+                bookSeat(row - 1, seat);
+                break;
+
+            case 3:
+                printf("Enter row and seat: ");
+                scanf("%d%d", &row, &seat);
+                cancelSeat(row - 1, seat);
+                break;
+
+            case 4:
+                displayAll();
+                break;
+
+            case 5:
+                printf("Program terminated.\\n");
+                break;
+
+            default:
+                printf("Invalid choice.\\n");
+        }
+    } while (choice != 5);
+
+    freeRows();
+    return 0;
+}`,
+
+"6": String.raw`/* Practical 6: Checking Balanced Parentheses Using Stack */
+#include <stdio.h>
+#define MAX 100
+
+char stack[MAX];
+int top = -1;
+
+void push(char c) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow\\n");
+        return;
+    }
+
+    stack[++top] = c;
+}
+
+char pop(void) {
+    if (top == -1)
+        return '\\0';
+
+    return stack[top--];
+}
+
+int isEmpty(void) {
+    return top == -1;
+}
+
+int isMatchingPair(char open, char close) {
+    return (open == '(' && close == ')') ||
+           (open == '{' && close == '}') ||
+           (open == '[' && close == ']');
+}
+
+int checkBalanced(const char expr[]) {
+    int i;
+    top = -1;
+
+    for (i = 0; expr[i] != '\\0'; i++) {
+        char ch = expr[i];
+
+        if (ch == '(' || ch == '{' || ch == '[') {
+            push(ch);
+        } else if (ch == ')' || ch == '}' || ch == ']') {
+            char open;
+
+            if (isEmpty())
+                return 0;
+
+            open = pop();
+
+            if (!isMatchingPair(open, ch))
+                return 0;
+        }
+    }
+
+    return isEmpty();
+}
+
+int main(void) {
+    char expr[MAX];
+    int choice;
+
+    do {
+        printf("\\n----- MENU -----\\n");
+        printf("1. Check balanced delimiters\\n");
+        printf("2. Exit\\nChoice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Enter expression (no spaces): ");
+            scanf("%99s", expr);
+
+            if (checkBalanced(expr))
+                printf("The expression is well parenthesized.\\n");
+            else
+                printf("The expression is NOT well parenthesized.\\n");
+
+        } else if (choice == 2) {
+            printf("Program terminated.\\n");
+        } else {
+            printf("Invalid choice.\\n");
+        }
+    } while (choice != 2);
+
+    return 0;
+}`,
+
+"7": String.raw`/* Practical 7: Simulating a Job Queue Using Queue */
+#include <stdio.h>
+#define MAX 10
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+int isFull(void) {
+    return rear == MAX - 1;
+}
+
+int isEmpty(void) {
+    return front == -1 || front > rear;
+}
+
+void addJob(int jobId) {
+    if (isFull()) {
+        printf("Queue Overflow. Cannot add job %d\\n", jobId);
+        return;
+    }
+
+    if (front == -1)
+        front = 0;
+
+    queue[++rear] = jobId;
+    printf("Job %d added to the queue.\\n", jobId);
+}
+
+void deleteJob(void) {
+    int jobId;
+
+    if (isEmpty()) {
+        printf("Queue Underflow. No job to process.\\n");
+        return;
+    }
+
+    jobId = queue[front++];
+    printf("Job %d processed and removed from the queue.\\n", jobId);
+
+    if (front > rear)
+        front = rear = -1;
+}
+
+void displayQueue(void) {
+    int i;
+
+    if (isEmpty()) {
+        printf("Job queue is empty.\\n");
+        return;
+    }
+
+    printf("Jobs in queue (front to rear): ");
+    for (i = front; i <= rear; i++)
+        printf("%d ", queue[i]);
+
+    printf("\\n");
+}
+
+int main(void) {
+    int choice, jobId;
+
+    do {
+        printf("\\n----- Job Queue MENU -----\\n");
+        printf("1. Add Job\\n");
+        printf("2. Process/Delete Job\\n");
+        printf("3. Display Queue\\n");
+        printf("4. Exit\\nChoice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter Job ID: ");
+                scanf("%d", &jobId);
+                addJob(jobId);
+                break;
+
+            case 2:
+                deleteJob();
+                break;
+
+            case 3:
+                displayQueue();
+                break;
+
+            case 4:
+                printf("Program terminated.\\n");
+                break;
+
+            default:
+                printf("Invalid choice.\\n");
+        }
+    } while (choice != 4);
+
+    return 0;
+}`,
+
+"8": String.raw`/* Practical 8: Binary Search Tree Operations */
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node *left, *right;
+} Node;
+
+Node *createNode(int value) {
+    Node *n = (Node *)malloc(sizeof(Node));
+
+    if (!n) {
+        printf("Memory allocation failed.\\n");
+        exit(1);
+    }
+
+    n->data = value;
+    n->left = n->right = NULL;
+
+    return n;
+}
+
+Node *insert(Node *root, int value) {
+    if (!root)
+        return createNode(value);
+
+    if (value < root->data)
+        root->left = insert(root->left, value);
+    else if (value > root->data)
+        root->right = insert(root->right, value);
+    else
+        printf("Duplicate value ignored.\\n");
+
+    return root;
+}
+
+void inorder(Node *root) {
+    if (root) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+int height(Node *root) {
+    int leftHeight, rightHeight;
+
+    if (!root)
+        return 0;
+
+    leftHeight = height(root->left);
+    rightHeight = height(root->right);
+
+    return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
+}
+
+int minValue(Node *root) {
+    if (!root)
+        return -1;
+
+    while (root->left)
+        root = root->left;
+
+    return root->data;
+}
+
+Node *search(Node *root, int key) {
+    if (!root || root->data == key)
+        return root;
+
+    if (key < root->data)
+        return search(root->left, key);
+
+    return search(root->right, key);
+}
+
+void mirror(Node *root) {
+    Node *tmp;
+
+    if (!root)
+        return;
+
+    tmp = root->left;
+    root->left = root->right;
+    root->right = tmp;
+
+    mirror(root->left);
+    mirror(root->right);
+}
+
+void freeTree(Node *root) {
+    if (root) {
+        freeTree(root->left);
+        freeTree(root->right);
+        free(root);
+    }
+}
+
+int main(void) {
+    Node *root = NULL;
+    int choice, value;
+
+    do {
+        printf("\\n--- BST Operations ---\\n");
+        printf("1. Insert value\\n");
+        printf("2. Inorder traversal\\n");
+        printf("3. Height (nodes in longest path)\\n");
+        printf("4. Minimum value\\n");
+        printf("5. Search value\\n");
+        printf("6. Mirror tree\\n");
+        printf("7. Exit\\nChoice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                root = insert(root, value);
+                break;
+
+            case 2:
+                printf("Inorder: ");
+                inorder(root);
+                printf("\\n");
+                break;
+
+            case 3:
+                printf("Height: %d node(s)\\n", height(root));
+                break;
+
+            case 4:
+                if (root)
+                    printf("Minimum value: %d\\n", minValue(root));
+                else
+                    printf("Tree is empty.\\n");
+                break;
+
+            case 5:
+                printf("Enter value to search: ");
+                scanf("%d", &value);
+                printf(search(root, value) ? "Value found.\\n" : "Value not found.\\n");
+                break;
+
+            case 6:
+                mirror(root);
+                printf("Tree mirrored.\\n");
+                break;
+
+            case 7:
+                printf("Program terminated.\\n");
+                break;
+
+            default:
+                printf("Invalid choice.\\n");
+        }
+    } while (choice != 7);
+
+    freeTree(root);
+    return 0;
+}`,
+
+"9": String.raw`/* Practical 9: Graph Representation and Depth First Search (DFS) */
+#include <stdio.h>
+#define MAX 20
+
+int graph[MAX][MAX], visited[MAX], n;
+
+void dfs(int vertex) {
+    int i;
+
+    visited[vertex] = 1;
+    printf("%d ", vertex);
+
+    for (i = 0; i < n; i++) {
+        if (graph[vertex][i] && !visited[i])
+            dfs(i);
+    }
+}
+
+int main(void) {
+    int i, j, edges, u, v, start;
+
+    printf("Enter number of vertices (1-%d): ", MAX);
+    scanf("%d", &n);
+
+    if (n < 1 || n > MAX) {
+        printf("Invalid number of vertices.\\n");
+        return 1;
+    }
+
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            graph[i][j] = 0;
+
+    printf("Enter number of edges: ");
+    scanf("%d", &edges);
+
+    printf("Enter each edge as two vertex numbers (0 to %d):\\n", n - 1);
+
+    for (i = 0; i < edges; i++) {
+        scanf("%d%d", &u, &v);
+
+        if (u < 0 || u >= n || v < 0 || v >= n) {
+            printf("Invalid edge; ignored.\\n");
+            continue;
+        }
+
+        graph[u][v] = graph[v][u] = 1;
+    }
+
+    printf("\\nAdjacency Matrix:\\n");
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++)
+            printf("%d ", graph[i][j]);
+
+        printf("\\n");
+    }
+
+    printf("Enter starting vertex (0 to %d): ", n - 1);
+    scanf("%d", &start);
+
+    if (start < 0 || start >= n) {
+        printf("Invalid starting vertex.\\n");
+        return 1;
+    }
+
+    for (i = 0; i < n; i++)
+        visited[i] = 0;
+
+    printf("DFS traversal: ");
+    dfs(start);
+    printf("\\n");
+
+    return 0;
+}`
+};
+
+document.querySelectorAll("[data-practical]").forEach(button => {
+  button.addEventListener("click", async () => {
+    const code = practicalCodes[button.dataset.practical];
+    const status = document.getElementById("status");
+
+    try {
+      await navigator.clipboard.writeText(code);
+      status.textContent =
+        "Practical " + button.dataset.practical + " code copied!";
+
+      const original = button.innerHTML;
+      button.innerHTML =
+        '<span class="num">COPIED</span><span class="title">Practical ' +
+        button.dataset.practical + '</span>';
+
+      setTimeout(() => {
+        button.innerHTML = original;
+      }, 1100);
+    } catch (error) {
+      status.textContent =
+        "Clipboard access failed. Open this page in a browser with clipboard permission.";
+    }
+  });
+});
+</script>
 </body>
 </html>
